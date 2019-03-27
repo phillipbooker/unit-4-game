@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Star Wars RPG</title>
+        <link rel="stylesheet" href="assets/css/reset.css">
+        <!-- External bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="assets/css/style.css">
+
+        <!-- Added link to the jQuery Library -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <main>
+            <div id="main-div" class="container-fluid">
+                <div class="row">
+                    <h1 class="text-center">Star Wars RPG</h1>
+                </div>
+                <div class="row">
+                    <div class="pillar col-md-12">
+                        <div id="character-label" class="row">
+                            Characters
+                        </div>
+                        <div id="characters" class="row game-row">
+                            <div id="char1" class="col-md-2">
+                                Char1
+                            </div>
+                            <div id="char2" class="col-md-2">
+                                Char2
+                            </div>
+                            <div id="char3" class="col-md-2">
+                                Char3
+                            </div>
+                            <div id="char4" class="col-md-2">
+                                Char4
+                            </div>
+                        </div>
+                        <div id="character-label" class="row">
+                            Enemies
+                        </div>
+                        <div id="enemies" class="row game-row">
+                            <div id="enemy1" class="col-md-2">
+                                Enemy1
+                            </div>
+                            <div id="enemy2" class="col-md-2">
+                                Enemy2
+                            </div>
+                            <div id="enemy3" class="col-md-2">
+                                Enemy3
+                            </div>
+                        </div>
+                        <div id="character-label" class="row">
+                            Defender
+                        </div>
+                        <div id="opponents" class="row game-row">
+                            <div id="opponent1" class="col-md-2">
+                                Opponent
+                                <img class ="char-pic" src="assets/images/luke.jpg">
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <button id="attack-btn" class = "btn btn-primary">Hi</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+        </main>
+        <script src="assets/javascript/game.js"></script>
+    </body>
+</html>
