@@ -20,10 +20,10 @@ var defender;
 //Used to keep track of game's progress
 var gameState = 0;
 
-var obiWan = new Character("obiWan", 120, 8, 8, "assets/images/obi-wan.jpg");
-var luke = new Character("luke", 100, 10, 5, "assets/images/luke.jpg");
+var obiWan = new Character("obiWan", 120, 8, 15, "assets/images/obi-wan.jpg");
+var luke = new Character("luke", 100, 15, 5, "assets/images/luke.jpg");
 var dooku = new Character("dooku", 150, 8, 20, "assets/images/dooku.jpg");
-var vader = new Character("vader", 180, 15, 25, "assets/images/vader.jpg");
+var vader = new Character("vader", 170, 5, 25, "assets/images/vader.jpg");
 
 //Adds characters to character array
 characters.push(obiWan);
