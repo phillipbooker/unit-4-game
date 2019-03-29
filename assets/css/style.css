@@ -1,12 +1,14 @@
 .game-row{
     height: 200px;
+    margin-top: 5px;
 }
 
 .char-pic{
     max-width: 125px;
-    padding-top: 15px;
-    padding-bottom: 5px;
-    /* border:solid 0.5px black; */
+    margin-top: 15px;
+    margin-bottom: 5px;
+    border:solid 1px black;
+    border-radius: 3px;
 }
 
 .char{
