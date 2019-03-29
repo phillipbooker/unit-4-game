@@ -4,11 +4,33 @@
 
 .char-pic{
     max-width: 125px;
+    padding-top: 15px;
+    padding-bottom: 5px;
+    /* border:solid 0.5px black; */
 }
 
 .char{
     float: left;
     height: 150px;
     width: 150px;
-    border: solid 1px black;
+    border: solid 1.5px black;
+    padding-top: 15px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius: 5px;
+}
+
+.player{
+    color: white;
+    background-color: green;
+}
+
+.enemy{
+    color: white;
+    background-color: gray;
+}
+
+.defender{
+    color: white;
+    background-color: red;
 }

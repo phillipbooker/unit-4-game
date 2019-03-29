@@ -99,6 +99,7 @@ $("#character-row").on("click", ".char", function(){
         //Add player's character to character row
         var charBox = $("<div>");
         charBox.addClass("char");
+        charBox.addClass("player");
         charBox.attr("name", yourCharacter.id);
         charBox.attr("health", yourCharacter.health);
         charBox.css("text-align", "center");
@@ -119,6 +120,7 @@ $("#character-row").on("click", ".char", function(){
         $.each(enemies, function(i, enemy){
             var enemyBox = $("<div>");
             enemyBox.addClass("char");
+            enemyBox.addClass("enemy");
             enemyBox.attr("name", enemy.id);
             enemyBox.attr("health", enemy.health);
             enemyBox.css("text-align", "center");
@@ -174,6 +176,7 @@ $("#enemy-row").on("click", ".char", function(){
         //Add defender's character to defender row
         var defenderBox = $("<div>");
         defenderBox.addClass("char");
+        defenderBox.addClass("defender");
         defenderBox.attr("name", defender.id);
         defenderBox.attr("health", defender.health);
         defenderBox.css("text-align", "center");
@@ -194,6 +197,7 @@ $("#enemy-row").on("click", ".char", function(){
         $.each(enemies, function(i, enemy){
             var enemyBox = $("<div>");
             enemyBox.addClass("char");
+            enemyBox.addClass("enemy");
             enemyBox.attr("name", enemy.id);
             enemyBox.attr("health", enemy.health);
             enemyBox.css("text-align", "center");
@@ -235,6 +239,7 @@ $("#attack-btn").on("click", function(){
 
                 var defenderBox = $("<div>");
                 defenderBox.addClass("char");
+                defenderBox.addClass("defender");
                 defenderBox.attr("name", defender.id);
                 defenderBox.attr("health", defender.health);
                 defenderBox.css("text-align", "center");
@@ -276,6 +281,7 @@ $("#attack-btn").on("click", function(){
 
             var charBox = $("<div>");
             charBox.addClass("char");
+            charBox.addClass("player");
             charBox.attr("name", yourCharacter.id);
             charBox.attr("health", yourCharacter.health);
             charBox.css("text-align", "center");
