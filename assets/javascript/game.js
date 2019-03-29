@@ -21,46 +21,56 @@ var defender;
 //Used to keep track of game's progress
 var gameState = 0;
 
-var obiWan = new Character("obiWan", "Obi Wan", 120, 8, 15, "assets/images/obi-wan.jpg");
-var luke = new Character("luke", "Luke Skywalker", 100, 15, 5, "assets/images/luke.jpg");
-var dooku = new Character("dooku", "Count Dooku", 150, 8, 20, "assets/images/dooku.jpg");
-var vader = new Character("vader", "Darth Vader", 170, 5, 25, "assets/images/vader.jpg");
 
-//Adds characters to character array
-characters.push(obiWan);
-characters.push(luke);
-characters.push(vader);
-characters.push(dooku);
-
-$("#start-btn").on("click", function(){
-    if(gameState == 0){
-        console.log(characters);
-
-        $.each(characters, function(i, char){
-            var charBox = $("<div>");
-            charBox.addClass("char");
-            charBox.attr("name", char.id);
-            charBox.attr("health", char.health);
-            charBox.css("text-align", "center");
-            charBox.text(char.name);
-
-            var pic = $("<img>");
-            pic.attr("src", char.picture);
-            pic.addClass("char-pic");
-            charBox.append(pic);
-
-            var pHealth = $("<p>");
-            pHealth.text(char.health);
-            charBox.append(pHealth);
-
-            $("#character-row").append(charBox);
-        });
+function restart(){
+    //Hide restart button
+    $("#restart-btn").css("display", "none");
     
-        gameState = 1;
-    }
+    //Empty all rows
+    $("#character-row").empty();
+    $("#enemy-row").empty();
+    $("#defender-row").empty();
+
+    //Empty all game arrays
+    characters = [];
+    enemies = [];
+
+    var obiWan = new Character("obiWan", "Obi Wan", 120, 8, 15, "assets/images/obi-wan.jpg");
+    var luke = new Character("luke", "Luke Skywalker", 100, 15, 5, "assets/images/luke.jpg");
+    var dooku = new Character("dooku", "Count Dooku", 150, 8, 20, "assets/images/dooku.jpg");
+    var vader = new Character("vader", "Darth Vader", 170, 5, 25, "assets/images/vader.jpg");
+
+    //Adds characters to character array
+    characters.push(obiWan);
+    characters.push(luke);
+    characters.push(vader);
+    characters.push(dooku);
+
+    $.each(characters, function(i, char){
+        var charBox = $("<div>");
+        charBox.addClass("char");
+        charBox.attr("name", char.id);
+        charBox.attr("health", char.health);
+        charBox.css("text-align", "center");
+        charBox.text(char.name);
+
+        var pic = $("<img>");
+        pic.attr("src", char.picture);
+        pic.addClass("char-pic");
+        charBox.append(pic);
+
+        var pHealth = $("<p>");
+        pHealth.text(char.health);
+        charBox.append(pHealth);
+
+        $("#character-row").append(charBox);
+    });
+
+    gameState = 1;
 
     $("#game-state").text(gameState);
-});
+}
+
 
 //Character select phase: state 1
 $("#character-row").on("click", ".char", function(){
@@ -244,6 +254,7 @@ $("#attack-btn").on("click", function(){
                 if(yourCharacter.health <= 0){
                     //Game Over state
                     gameState = 99;
+                    $("#restart-btn").css("display", "inline-block");
                 }
 
             } else {
@@ -256,6 +267,7 @@ $("#attack-btn").on("click", function(){
                 } else {
                     //Game Win state
                     gameState = 77;
+                    $("#restart-btn").css("display", "inline-block");
                 }
             }
 
@@ -293,10 +305,14 @@ $("#attack-btn").on("click", function(){
     $("#game-state").text(gameState);
 });
 
+$("#restart-btn").on("click", function(){
+    restart();
+});
+
 
 
 $(document).ready(function(){
-
+    restart();
 });
 
 
