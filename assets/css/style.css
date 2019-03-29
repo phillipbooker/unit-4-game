@@ -3,12 +3,12 @@
 }
 
 .char-pic{
-    max-height: 150px;
+    max-width: 125px;
 }
 
 .char{
     float: left;
     height: 150px;
-    width: 100px;
+    width: 150px;
     border: solid 1px black;
 }

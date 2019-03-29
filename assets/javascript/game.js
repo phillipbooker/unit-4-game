@@ -1,4 +1,5 @@
-function Character(name, health, attack, counter, picture){
+function Character(id, name, health, attack, counter, picture){
+    this.id = id;
     this.name = name;
     this.health = health;
     this.base = attack;
@@ -20,10 +21,10 @@ var defender;
 //Used to keep track of game's progress
 var gameState = 0;
 
-var obiWan = new Character("obiWan", 120, 8, 15, "assets/images/obi-wan.jpg");
-var luke = new Character("luke", 100, 15, 5, "assets/images/luke.jpg");
-var dooku = new Character("dooku", 150, 8, 20, "assets/images/dooku.jpg");
-var vader = new Character("vader", 170, 5, 25, "assets/images/vader.jpg");
+var obiWan = new Character("obiWan", "Obi Wan", 120, 8, 15, "assets/images/obi-wan.jpg");
+var luke = new Character("luke", "Luke Skywalker", 100, 15, 5, "assets/images/luke.jpg");
+var dooku = new Character("dooku", "Count Dooku", 150, 8, 20, "assets/images/dooku.jpg");
+var vader = new Character("vader", "Darth Vader", 170, 5, 25, "assets/images/vader.jpg");
 
 //Adds characters to character array
 characters.push(obiWan);
@@ -38,9 +39,20 @@ $("#start-btn").on("click", function(){
         $.each(characters, function(i, char){
             var charBox = $("<div>");
             charBox.addClass("char");
-            charBox.attr("name", char.name);
+            charBox.attr("name", char.id);
             charBox.attr("health", char.health);
+            charBox.css("text-align", "center");
             charBox.text(char.name);
+
+            var pic = $("<img>");
+            pic.attr("src", char.picture);
+            pic.addClass("char-pic");
+            charBox.append(pic);
+
+            var pHealth = $("<p>");
+            pHealth.text(char.health);
+            charBox.append(pHealth);
+
             $("#character-row").append(charBox);
         });
     
@@ -57,7 +69,7 @@ $("#character-row").on("click", ".char", function(){
         //Set the player's character
         var clickedName = $(this).attr("name");
         $.each(characters, function(i, char){
-            if(char.name == clickedName){
+            if(char.id == clickedName){
                 yourCharacter = char;
             } else {
                 enemies.push(char);
@@ -66,6 +78,7 @@ $("#character-row").on("click", ".char", function(){
 
         console.log("Your Character:" + yourCharacter.name);
 
+        //Debug
         $.each(enemies, function(i, char){
             console.log("Enemy " + (i+1) + ": " + char.name);
         });
@@ -76,19 +89,40 @@ $("#character-row").on("click", ".char", function(){
         //Add player's character to character row
         var charBox = $("<div>");
         charBox.addClass("char");
-        // charBox.attr("id", "player");
-        charBox.attr("name", yourCharacter.name);
+        charBox.attr("name", yourCharacter.id);
         charBox.attr("health", yourCharacter.health);
+        charBox.css("text-align", "center");
         charBox.text(yourCharacter.name);
+
+        var pic = $("<img>");
+        pic.attr("src", yourCharacter.picture);
+        pic.addClass("char-pic");
+        charBox.append(pic);
+
+        var pHealth = $("<p>");
+        pHealth.text(yourCharacter.health);
+        charBox.append(pHealth);
+
         $("#character-row").append(charBox);
 
         //Add enemies to enemies row
         $.each(enemies, function(i, enemy){
             var enemyBox = $("<div>");
             enemyBox.addClass("char");
-            enemyBox.attr("name", enemy.name);
+            enemyBox.attr("name", enemy.id);
             enemyBox.attr("health", enemy.health);
+            enemyBox.css("text-align", "center");
             enemyBox.text(enemy.name);
+
+            var enemyPic = $("<img>");
+            enemyPic.attr("src", enemy.picture);
+            enemyPic.addClass("char-pic");
+            enemyBox.append(enemyPic);
+
+            var pHealthEnemy = $("<p>");
+            pHealthEnemy.text(enemy.health);
+            enemyBox.append(pHealthEnemy);
+
             $("#enemy-row").append(enemyBox);
         });
 
@@ -109,13 +143,14 @@ $("#enemy-row").on("click", ".char", function(){
         //Set the defender
         var clickedName = $(this).attr("name");
         $.each(tempEnemies, function(i, char){
-            if(char.name == clickedName){
+            if(char.id == clickedName){
                 defender = char;
             } else {
                 enemies.push(char);
             }
         });
 
+        //Debug
         console.log("Your Character:" + yourCharacter.name);
         console.log("Your Defender:" + defender.name);
 
@@ -127,21 +162,42 @@ $("#enemy-row").on("click", ".char", function(){
         $("#enemy-row").empty();
 
         //Add defender's character to defender row
-        var charBox = $("<div>");
-        charBox.addClass("char");
-        // charBox.attr("id", "defender");
-        charBox.attr("name", defender.name);
-        charBox.attr("health", defender.health);
-        charBox.text(defender.name);
-        $("#defender-row").append(charBox);
+        var defenderBox = $("<div>");
+        defenderBox.addClass("char");
+        defenderBox.attr("name", defender.id);
+        defenderBox.attr("health", defender.health);
+        defenderBox.css("text-align", "center");
+        defenderBox.text(defender.name);
+
+        var pic = $("<img>");
+        pic.attr("src", defender.picture);
+        pic.addClass("char-pic");
+        defenderBox.append(pic);
+
+        var pHealth = $("<p>");
+        pHealth.text(defender.health);
+        defenderBox.append(pHealth);
+
+        $("#defender-row").append(defenderBox);
 
         //Add enemies to enemies row
         $.each(enemies, function(i, enemy){
             var enemyBox = $("<div>");
             enemyBox.addClass("char");
-            enemyBox.attr("name", enemy.name);
+            enemyBox.attr("name", enemy.id);
             enemyBox.attr("health", enemy.health);
+            enemyBox.css("text-align", "center");
             enemyBox.text(enemy.name);
+
+            var enemyPic = $("<img>");
+            enemyPic.attr("src", enemy.picture);
+            enemyPic.addClass("char-pic");
+            enemyBox.append(enemyPic);
+
+            var pHealthEnemy = $("<p>");
+            pHealthEnemy.text(enemy.health);
+            enemyBox.append(pHealthEnemy);
+
             $("#enemy-row").append(enemyBox);
         });
 
@@ -169,9 +225,20 @@ $("#attack-btn").on("click", function(){
 
                 var defenderBox = $("<div>");
                 defenderBox.addClass("char");
-                defenderBox.attr("name", defender.name);
+                defenderBox.attr("name", defender.id);
                 defenderBox.attr("health", defender.health);
+                defenderBox.css("text-align", "center");
                 defenderBox.text(defender.name);
+
+                var pic = $("<img>");
+                pic.attr("src", defender.picture);
+                pic.addClass("char-pic");
+                defenderBox.append(pic);
+
+                var pHealth = $("<p>");
+                pHealth.text(defender.health);
+                defenderBox.append(pHealth);
+
                 $("#defender-row").append(defenderBox);
 
                 if(yourCharacter.health <= 0){
@@ -197,9 +264,20 @@ $("#attack-btn").on("click", function(){
 
             var charBox = $("<div>");
             charBox.addClass("char");
-            charBox.attr("name", yourCharacter.name);
+            charBox.attr("name", yourCharacter.id);
             charBox.attr("health", yourCharacter.health);
+            charBox.css("text-align", "center");
             charBox.text(yourCharacter.name);
+
+            var pic = $("<img>");
+            pic.attr("src", yourCharacter.picture);
+            pic.addClass("char-pic");
+            charBox.append(pic);
+
+            var pHealth = $("<p>");
+            pHealth.text(yourCharacter.health);
+            charBox.append(pHealth);
+
             $("#character-row").append(charBox);
 
             
@@ -214,6 +292,7 @@ $("#attack-btn").on("click", function(){
     }
     $("#game-state").text(gameState);
 });
+
 
 
 $(document).ready(function(){
