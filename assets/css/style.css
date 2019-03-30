@@ -1,5 +1,10 @@
+body{
+    background-image: url("../images/background.jpg");
+    color: white;
+}
+
 .game-row{
-    height: 200px;
+    height: 160px;
     margin-top: 5px;
 }
 
@@ -13,7 +18,7 @@
 
 .char{
     float: left;
-    height: 150px;
+    height: 135px;
     width: 150px;
     border: solid 1.5px black;
     padding-top: 15px;
@@ -24,20 +29,34 @@
 
 .default{
     color: black;
-    background-color: rgb(223, 223, 223);
+    background-color: rgb(223, 223, 223, 80%);
 }
 
 .player{
-    color: white;
-    background-color: green;
+    color: black;
+    background-color: rgb(78, 145, 78, 80%);
 }
 
 .enemy{
-    color: white;
-    background-color: gray;
+    color: black;
+    background-color: rgb(223, 223, 223, 80%);
 }
 
 .defender{
-    color: white;
-    background-color: red;
+    color: black;
+    background-color: rgb(240, 56, 56, 80%);
+}
+
+.message-box{
+    border: solid 1px white;
+    border-radius: 10px;
+    max-width: 850px;
+    height: 75px;
+    padding: 15px;
+    color: black;
+    background-color: rgb(223, 223, 223, 75%);
+}
+
+#game-direction{
+    font-weight: bold;
 }

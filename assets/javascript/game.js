@@ -1,3 +1,4 @@
+//Creates Character object
 function Character(id, name, health, attack, counter, picture){
     this.id = id;
     this.name = name;
@@ -8,6 +9,7 @@ function Character(id, name, health, attack, counter, picture){
     this.picture = picture;
 }
 
+//Function to create character divs to add to game rows
 function addCharacter(char, charClass){
     var charDiv = $("<div>");
     charDiv.addClass("char");
@@ -42,7 +44,7 @@ var defender;
 //Used to keep track of game's progress
 var gameState = 0;
 
-
+//Resets game to its initial state
 function restart(){
     //Hide restart button
     $("#restart-btn").css("display", "none");
@@ -73,13 +75,16 @@ function restart(){
         $("#character-row").append(charBox);
     });
 
+    //Advances game to character select
     gameState = 1;
 
     //Update game messages
     $("#game-direction").text("Select your character.");
     $("#player-message").text("");
     $("#defender-message").text("");
-    $("#game-state").text(gameState);
+    
+    //Print game state to console
+    console.log("Game State: " + gameState);
 }
 
 
@@ -97,9 +102,10 @@ $("#character-row").on("click", ".char", function(){
             }
         });
 
+        //Prints selected character to the console
         console.log("Your Character:" + yourCharacter.name);
 
-        //Debug
+        //Debug (get list of remaining enemies)
         $.each(enemies, function(i, char){
             console.log("Enemy " + (i+1) + ": " + char.name);
         });
@@ -117,23 +123,27 @@ $("#character-row").on("click", ".char", function(){
             $("#enemy-row").append(enemyBox);
         });
 
-        //Advance game
+        //Advance game to enemy select phase
         gameState = 2;
+
+        //Update game messages
+        $("#game-direction").text("Choose your opponent.");
+        $("#player-message").text("");
+        $("#defender-message").text("");
+
+        //Print game state to console
+        console.log("Game State: " + gameState);
     }
 
-    //Update game messages
-    $("#game-direction").text("Choose your opponent.");
-    $("#player-message").text("");
-    $("#defender-message").text("");
-    $("#game-state").text(gameState);
+    
 });
 
 //Enemy select phase: state 2
 $("#enemy-row").on("click", ".char", function(){
     if(gameState == 2){
 
-        //Empty the enemies array
-        tempEnemies = enemies;
+        //Empties enemies array to add selected enemy to defender row (add remaining enemies back)
+        var tempEnemies = enemies;
         enemies = [];
 
         //Set the defender
@@ -167,17 +177,21 @@ $("#enemy-row").on("click", ".char", function(){
             $("#enemy-row").append(enemyBox);
         });
 
-        //Advance game
+        //Advance game to fight phase
         gameState = 3;
-    }
 
-    //Update game messages
-    $("#game-direction").text("Fight! (Click the attack button to attack!)");
-    $("#player-message").text("");
-    $("#defender-message").text("");
-    $("#game-state").text(gameState);
+        //Update game messages
+        $("#game-direction").text("Fight! (Click the attack button to attack!)");
+        $("#player-message").text("");
+        $("#defender-message").text("");
+        
+        //Print game state to console
+        console.log("Game State: " + gameState);
+    }
+    
 });
 
+//Defender fight phase: state 3
 $("#attack-btn").on("click", function(){
     if(gameState == 3){
         if(defender.health > 0){
@@ -187,6 +201,7 @@ $("#attack-btn").on("click", function(){
             //Display player damage
             $("#player-message").text("You dealt " + yourCharacter.attack + " damage!");
 
+            //Deal damage to defender and increase player's attack
             defender.health -= yourCharacter.attack;
             yourCharacter.attack += yourCharacter.base;
 
@@ -203,8 +218,8 @@ $("#attack-btn").on("click", function(){
                 var defenderBox = addCharacter(defender, "defender");
                 $("#defender-row").append(defenderBox);
 
+                //Player's character dies
                 if(yourCharacter.health <= 0){
-
                     //Prevents player health from going below 0
                     yourCharacter.health = 0;
 
@@ -223,7 +238,7 @@ $("#attack-btn").on("click", function(){
                 //Remove defender from row (defeated)
                 $("#defender-row").empty();
 
-                //Display Defender damage (Didn't counter attack)
+                //Display 'defender defeated' result
                 $("#defender-message").text(defender.name + " has been defeated!");
 
                 //Go back to defender select state
@@ -245,18 +260,20 @@ $("#attack-btn").on("click", function(){
             $("#character-row").append(charBox);
 
             
-
+            //Debug
             console.log("Your health: " + yourCharacter.health);
             console.log("Your attack: " + yourCharacter.attack);
-            
             console.log("Defender health: " + defender.health);
 
         }
     
+        //Print game state to console
+        console.log("Game State: " + gameState);
     }
-    $("#game-state").text(gameState);
+    
 });
 
+//Initializes game
 $("#restart-btn").on("click", function(){
     restart();
 });
