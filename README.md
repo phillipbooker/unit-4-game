@@ -1,5 +1,5 @@
-# unit-4-game
-
+# Star Wars RPG
+### (unit-4-game)
 This is a Star Wars themed RPG game made with jQuery.
 
 The objective of the game is to defeat all enemies before the player's health reduces to zero.
@@ -18,10 +18,10 @@ All messages that are important to the user are shown in a message box at the bo
 
 ## Instructions
 
-#### Character Select Phase
+#### Character Select
 Choose your character.
 
-#### Enemy Select Phase
+#### Enemy Select
 Select your first opponent.
 
 #### Fight Phase!
@@ -29,6 +29,8 @@ Attack the Defender using the "Attack" button. As your character attacks you wil
 
 #### Defeat all enemies!
 Once you defeat all enemies you win!
+
+
 
 #### Technologies
 
