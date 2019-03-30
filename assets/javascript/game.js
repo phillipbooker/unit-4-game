@@ -8,6 +8,27 @@ function Character(id, name, health, attack, counter, picture){
     this.picture = picture;
 }
 
+function addCharacter(char, charClass){
+    var charDiv = $("<div>");
+    charDiv.addClass("char");
+    charDiv.addClass(charClass);
+    charDiv.attr("name", char.id);
+    charDiv.attr("health", char.health);
+    charDiv.css("text-align", "center");
+    charDiv.text(char.name);
+
+    var pic = $("<img>");
+    pic.attr("src", char.picture);
+    pic.addClass("char-pic");
+    charDiv.append(pic);
+
+    var pHealth = $("<p>");
+    pHealth.text(char.health);
+    charDiv.append(pHealth);
+
+    return(charDiv);
+}
+
 //Hold all characters in the game
 var characters = [];
 
@@ -47,23 +68,8 @@ function restart(){
     characters.push(dooku);
 
     $.each(characters, function(i, char){
-        var charBox = $("<div>");
-        charBox.addClass("char");
-        charBox.addClass("default");
-        charBox.attr("name", char.id);
-        charBox.attr("health", char.health);
-        charBox.css("text-align", "center");
-        charBox.text(char.name);
-
-        var pic = $("<img>");
-        pic.attr("src", char.picture);
-        pic.addClass("char-pic");
-        charBox.append(pic);
-
-        var pHealth = $("<p>");
-        pHealth.text(char.health);
-        charBox.append(pHealth);
-
+        //Create character div with function and add to character row
+        var charBox = addCharacter(char, "default");
         $("#character-row").append(charBox);
     });
 
@@ -73,7 +79,6 @@ function restart(){
     $("#game-direction").text("Select your character.");
     $("#player-message").text("");
     $("#defender-message").text("");
-    $("#game-result").text("");
     $("#game-state").text(gameState);
 }
 
@@ -103,44 +108,12 @@ $("#character-row").on("click", ".char", function(){
         $("#character-row").empty();
 
         //Add player's character to character row
-        var charBox = $("<div>");
-        charBox.addClass("char");
-        charBox.addClass("player");
-        charBox.attr("name", yourCharacter.id);
-        charBox.attr("health", yourCharacter.health);
-        charBox.css("text-align", "center");
-        charBox.text(yourCharacter.name);
-
-        var pic = $("<img>");
-        pic.attr("src", yourCharacter.picture);
-        pic.addClass("char-pic");
-        charBox.append(pic);
-
-        var pHealth = $("<p>");
-        pHealth.text(yourCharacter.health);
-        charBox.append(pHealth);
-
+        var charBox = addCharacter(yourCharacter, "player");
         $("#character-row").append(charBox);
 
         //Add enemies to enemies row
         $.each(enemies, function(i, enemy){
-            var enemyBox = $("<div>");
-            enemyBox.addClass("char");
-            enemyBox.addClass("enemy");
-            enemyBox.attr("name", enemy.id);
-            enemyBox.attr("health", enemy.health);
-            enemyBox.css("text-align", "center");
-            enemyBox.text(enemy.name);
-
-            var enemyPic = $("<img>");
-            enemyPic.attr("src", enemy.picture);
-            enemyPic.addClass("char-pic");
-            enemyBox.append(enemyPic);
-
-            var pHealthEnemy = $("<p>");
-            pHealthEnemy.text(enemy.health);
-            enemyBox.append(pHealthEnemy);
-
+            var enemyBox = addCharacter(enemy, "enemy");
             $("#enemy-row").append(enemyBox);
         });
 
@@ -152,7 +125,6 @@ $("#character-row").on("click", ".char", function(){
     $("#game-direction").text("Choose your opponent.");
     $("#player-message").text("");
     $("#defender-message").text("");
-    $("#game-result").text("");
     $("#game-state").text(gameState);
 });
 
@@ -186,44 +158,12 @@ $("#enemy-row").on("click", ".char", function(){
         $("#enemy-row").empty();
 
         //Add defender's character to defender row
-        var defenderBox = $("<div>");
-        defenderBox.addClass("char");
-        defenderBox.addClass("defender");
-        defenderBox.attr("name", defender.id);
-        defenderBox.attr("health", defender.health);
-        defenderBox.css("text-align", "center");
-        defenderBox.text(defender.name);
-
-        var pic = $("<img>");
-        pic.attr("src", defender.picture);
-        pic.addClass("char-pic");
-        defenderBox.append(pic);
-
-        var pHealth = $("<p>");
-        pHealth.text(defender.health);
-        defenderBox.append(pHealth);
-
+        var defenderBox = addCharacter(defender, "defender");
         $("#defender-row").append(defenderBox);
 
         //Add enemies to enemies row
         $.each(enemies, function(i, enemy){
-            var enemyBox = $("<div>");
-            enemyBox.addClass("char");
-            enemyBox.addClass("enemy");
-            enemyBox.attr("name", enemy.id);
-            enemyBox.attr("health", enemy.health);
-            enemyBox.css("text-align", "center");
-            enemyBox.text(enemy.name);
-
-            var enemyPic = $("<img>");
-            enemyPic.attr("src", enemy.picture);
-            enemyPic.addClass("char-pic");
-            enemyBox.append(enemyPic);
-
-            var pHealthEnemy = $("<p>");
-            pHealthEnemy.text(enemy.health);
-            enemyBox.append(pHealthEnemy);
-
+            var enemyBox = addCharacter(enemy, "enemy");
             $("#enemy-row").append(enemyBox);
         });
 
@@ -235,7 +175,6 @@ $("#enemy-row").on("click", ".char", function(){
     $("#game-direction").text("Fight! (Click the attack button to attack!)");
     $("#player-message").text("");
     $("#defender-message").text("");
-    $("#game-result").text("");
     $("#game-state").text(gameState);
 });
 
@@ -261,26 +200,14 @@ $("#attack-btn").on("click", function(){
                 //Remove defender from row and re-add with new stats
                 $("#defender-row").empty();
 
-                var defenderBox = $("<div>");
-                defenderBox.addClass("char");
-                defenderBox.addClass("defender");
-                defenderBox.attr("name", defender.id);
-                defenderBox.attr("health", defender.health);
-                defenderBox.css("text-align", "center");
-                defenderBox.text(defender.name);
-
-                var pic = $("<img>");
-                pic.attr("src", defender.picture);
-                pic.addClass("char-pic");
-                defenderBox.append(pic);
-
-                var pHealth = $("<p>");
-                pHealth.text(defender.health);
-                defenderBox.append(pHealth);
-
+                var defenderBox = addCharacter(defender, "defender");
                 $("#defender-row").append(defenderBox);
 
                 if(yourCharacter.health <= 0){
+
+                    //Prevents player health from going below 0
+                    yourCharacter.health = 0;
+
                     //Game Over state
                     gameState = 99;
                     $("#restart-btn").css("display", "inline-block");
@@ -290,6 +217,9 @@ $("#attack-btn").on("click", function(){
                 }
 
             } else {
+                //Prevents defender health from going below 0
+                defender.health = 0;
+
                 //Remove defender from row (defeated)
                 $("#defender-row").empty();
 
@@ -311,23 +241,7 @@ $("#attack-btn").on("click", function(){
             //Remove character from row and re-add with new stats
             $("#character-row").empty();
 
-            var charBox = $("<div>");
-            charBox.addClass("char");
-            charBox.addClass("player");
-            charBox.attr("name", yourCharacter.id);
-            charBox.attr("health", yourCharacter.health);
-            charBox.css("text-align", "center");
-            charBox.text(yourCharacter.name);
-
-            var pic = $("<img>");
-            pic.attr("src", yourCharacter.picture);
-            pic.addClass("char-pic");
-            charBox.append(pic);
-
-            var pHealth = $("<p>");
-            pHealth.text(yourCharacter.health);
-            charBox.append(pHealth);
-
+            var charBox = addCharacter(yourCharacter, "player");
             $("#character-row").append(charBox);
 
             
@@ -351,19 +265,3 @@ $("#restart-btn").on("click", function(){
 $(document).ready(function(){
     restart();
 });
-
-
-//Testing
-// $(".row").on("click", function(){
-//     console.log("Hi");
-// });
-
-// $("img").on("click", function(){
-//     console.log("Hiz");
-// });
-
-// $(".char").on("click", "img", function(){
-//     console.log("Hizz");
-//     console.log($("#char1").hasClass("char-pic"));
-//     console.log($(this).attr("health"));
-// });
