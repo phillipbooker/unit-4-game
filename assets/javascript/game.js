@@ -49,6 +49,7 @@ function restart(){
     $.each(characters, function(i, char){
         var charBox = $("<div>");
         charBox.addClass("char");
+        charBox.addClass("default");
         charBox.attr("name", char.id);
         charBox.attr("health", char.health);
         charBox.css("text-align", "center");
@@ -68,6 +69,11 @@ function restart(){
 
     gameState = 1;
 
+    //Update game messages
+    $("#game-direction").text("Select your character.");
+    $("#player-message").text("");
+    $("#defender-message").text("");
+    $("#game-result").text("");
     $("#game-state").text(gameState);
 }
 
@@ -141,6 +147,12 @@ $("#character-row").on("click", ".char", function(){
         //Advance game
         gameState = 2;
     }
+
+    //Update game messages
+    $("#game-direction").text("Choose your opponent.");
+    $("#player-message").text("");
+    $("#defender-message").text("");
+    $("#game-result").text("");
     $("#game-state").text(gameState);
 });
 
@@ -218,6 +230,12 @@ $("#enemy-row").on("click", ".char", function(){
         //Advance game
         gameState = 3;
     }
+
+    //Update game messages
+    $("#game-direction").text("Fight! (Click the attack button to attack!)");
+    $("#player-message").text("");
+    $("#defender-message").text("");
+    $("#game-result").text("");
     $("#game-state").text(gameState);
 });
 
@@ -227,6 +245,9 @@ $("#attack-btn").on("click", function(){
 
             //Fight sequence
             
+            //Display player damage
+            $("#player-message").text("You dealt " + yourCharacter.attack + " damage!");
+
             defender.health -= yourCharacter.attack;
             yourCharacter.attack += yourCharacter.base;
 
@@ -234,6 +255,9 @@ $("#attack-btn").on("click", function(){
             if(defender.health > 0){
                 yourCharacter.health -= defender.counter;
 
+                //Display Defender damage
+                $("#defender-message").text(defender.name + " countered for " + defender.counter + " damage!");
+                
                 //Remove defender from row and re-add with new stats
                 $("#defender-row").empty();
 
@@ -260,19 +284,27 @@ $("#attack-btn").on("click", function(){
                     //Game Over state
                     gameState = 99;
                     $("#restart-btn").css("display", "inline-block");
+                    $("#game-direction").text("Game over... (Click the Restart button to try again!)");
+                } else {
+                    $("#game-direction").text("Fight! (Click the attack button to attack!)");
                 }
 
             } else {
                 //Remove defender from row (defeated)
                 $("#defender-row").empty();
 
+                //Display Defender damage (Didn't counter attack)
+                $("#defender-message").text(defender.name + " has been defeated!");
+
                 //Go back to defender select state
                 if(enemies.length > 0){
                     gameState = 2;
+                    $("#game-direction").text("Choose your next opponent.");
                 } else {
                     //Game Win state
                     gameState = 77;
                     $("#restart-btn").css("display", "inline-block");
+                    $("#game-direction").text("You won! (Click the Restart button to play again!)");
                 }
             }
 
