@@ -79,7 +79,7 @@ function restart(){
     gameState = 1;
 
     //Update game messages
-    $("#game-direction").text("Select your character.");
+    $("#game-direction").text("Select your character!");
     $("#player-message").text("");
     $("#defender-message").text("");
     
@@ -127,7 +127,7 @@ $("#character-row").on("click", ".char", function(){
         gameState = 2;
 
         //Update game messages
-        $("#game-direction").text("Choose your opponent.");
+        $("#game-direction").text("Choose your opponent!");
         $("#player-message").text("");
         $("#defender-message").text("");
 
@@ -181,7 +181,7 @@ $("#enemy-row").on("click", ".char", function(){
         gameState = 3;
 
         //Update game messages
-        $("#game-direction").text("Fight! (Click the attack button to attack!)");
+        $("#game-direction").text("Fight! (Click the Attack button to fight!)");
         $("#player-message").text("");
         $("#defender-message").text("");
         
@@ -228,7 +228,7 @@ $("#attack-btn").on("click", function(){
                     $("#restart-btn").css("display", "inline-block");
                     $("#game-direction").text("Game over... (Click the Restart button to try again!)");
                 } else {
-                    $("#game-direction").text("Fight! (Click the attack button to attack!)");
+                    $("#game-direction").text("Fight! (Click the Attack button to fight!)");
                 }
 
             } else {
@@ -244,7 +244,7 @@ $("#attack-btn").on("click", function(){
                 //Go back to defender select state
                 if(enemies.length > 0){
                     gameState = 2;
-                    $("#game-direction").text("Choose your next opponent.");
+                    $("#game-direction").text("Choose your next opponent!");
                 } else {
                     //Game Win state
                     gameState = 77;
