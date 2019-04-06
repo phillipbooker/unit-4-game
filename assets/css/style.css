@@ -1,6 +1,8 @@
 body{
     background-image: url("../images/stars.jpg");
     color: white;
+    font-family: 'Passion One', cursive;
+    letter-spacing: 1px;
 }
 
 h1{
@@ -77,6 +79,14 @@ main{
 
 #game-direction{
     font-weight: bold;
+}
+
+button{
+    letter-spacing: 1px;
+    padding: 3px;
+    border-radius: 5px;
+    background: rgb(71, 71, 71);
+    color: white;
 }
 
 @media screen and (max-width: 768px){
